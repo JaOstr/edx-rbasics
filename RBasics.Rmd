@@ -1,0 +1,32 @@
+---
+title: "R Basics Notes"
+output: html_document
+date: "2024-07-10"
+---
+
+# Some basic functions
+log()
+
+sqrt()
+
+exp()
+
+data() # see all datasets in whe workspace
+
+install.packages()
+
+library()
+
+require()
+
+
+# Getting help
+help("log")
+
+help(log)
+
+?log
+
+args(log)
+
+help("+") # help on + operator
