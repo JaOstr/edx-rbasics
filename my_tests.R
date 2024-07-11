@@ -54,3 +54,12 @@ str(olive)
 plot(olive$palmitoleic, olive$palmitic)
 hist(olive$eicosenoic)
 boxplot(palmitic ~ region, data = olive)
+
+
+
+# add columnt to dataset
+murders$rate <- with(murders, total / population * 100000)
+
+
+mm <- matrix(1:9, 3, 3)
+image(mm)
