@@ -19,6 +19,7 @@ library()
 
 require()
 
+length()
 
 # Getting help
 help("log")
@@ -30,3 +31,12 @@ help(log)
 args(log)
 
 help("+") # help on + operator
+
+# Data types
+class(1234)
+class(ls)
+class(murders)  # data.frame: a dataset in library(dslabs)
+
+Factors
+class(murders$region)
+levels(murders$region)
