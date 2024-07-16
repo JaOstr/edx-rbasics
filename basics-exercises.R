@@ -267,15 +267,19 @@ mean(na_example)
 # which entries are NA.
 # Assign this logical vector to an object called ind and determine
 # how many NAs does na_example have.
-sum(is.na(na_example))
+ind <- is.na(na_example)
+sum(ind)
 # 145
 
-# 31
+# 31/45
 # Now compute the average again, but only for the entries
 # that are not NA. Hint: remember the ! operator,
 # which turns FALSE into TRUE and vice versa.
+sum(sort(na_example)) / sum(!ind) # sort removes NAs by default :)
+sum(na_example, na.rm = TRUE) / sum(!ind)
+mean(na_example, na.rm = TRUE)
 
-# 32
+# 32/45
 # In exercises 28 we created the temp data frame:
 temp <- c(35, 88, 42, 84, 81, 30)
 city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro", "San Juan", "Toronto")
@@ -283,51 +287,71 @@ city_temps <- data.frame(name = city, temperature = temp)
 # Remake the data frame using the code above,
 # but add a line that converts the temperature
 # from Fahrenheit to Celsius. The conversion is c = 5/9 * (f - 32)
+city_temps_celsius <- data.frame(name = city, temperature = 5/9 * (temp - 32))
 
-# 33
+# 33/45
 # What is the following sum 1 + 1/1^2 + 1/2^2 + 1/3^2 + ... + 1/100^2
 # Hint: thanks to Euler, we know it should be close to PI^2/6
+sum(1/(1:100)^2)
+pi^2/6
 
-# 34
+# 34/45
 # Compute the per 100,000 murder rate for each state
 # and store it in the object murder_rate.
 # Then compute the average murder rate for the US
 # using the function mean. What is the average?
+data(murders)
+murder_rate <- murders$total / murders$population * 100000
+fake_average <- mean(murder_rate)
+# 2.779125
+# real mean:
+sum(murders$total) / sum(murders$population) * 100000
+# 3.034555
   
-# 35
+# 35/45
 # For remaining exercises 35-42, start by loading the library and data.
 library(dslabs)
+data(murders)
 # Compute the per 100,000 murder rate for each state
 # and store it in an object called murder_rate.
+murder_rate <- murders$total / murders$population * 10^5
 # Then use logical operators to create a logical vector
 # named low that tells us which entries of murder_rate are lower than 1.
+low <- murder_rate < 1
 
-# 36
+# 36/45
 # Now use the results from the previous exercise and the function
 # which to determine the indices of murder_rate
 # associated with values lower than 1.
+which(low)
 
-# 37
+# 37/45
 # Use the results from the previous exercise to report
 # the names of the states with murder rates lower than 1.
+murders$state[which(low)]
 
-# 38
+# 38/45
 # Now extend the code from the exercise to report the states
 # in the Northeast with murder rates lower than 1.
 # Hint: use the previously defined logical vector low and
 # the logical operator &.
+murders$state[which(low & murders$region == "Northeast")]
 
-# 39
+# 39/45
 # In a previous exercise we computed the murder rate for each state
 # and the average of these numbers.
 # How many states are below the average?
+sum(murder_rate < fake_average)
+# 27
 
-# 40
+# 40/45
 # Use the match function to identify the states with abbreviations
 # AK, MI, and IA.
 # Hint: start by defining an index of the entries of murders$abb
 # that match the three abbreviations, then use the [ operator
 # to extract the states.
+ind <- match(c("AK", "MI", "IA"), murders$abb)
+murders$state[ind]
 
 # 41
 # Use the %in% operator to create a logical vector that answers
