@@ -353,23 +353,28 @@ sum(murder_rate < fake_average)
 ind <- match(c("AK", "MI", "IA"), murders$abb)
 murders$state[ind]
 
-# 41
+# 41/45
 # Use the %in% operator to create a logical vector that answers
 # the question: which of the following are actual abbreviations:
 # MA, ME, MI, MO, MU?
+c("MA", "ME", "MI", "MO", "MU") %in% murders$abb
+murders$state[match(c("MA", "ME", "MI", "MO", "MU"), murders$abb)]
 
-# 42
+# 42/45
 # Extend the code you used in exercise 7 to report the one entry
 # that is not an actual abbreviation.
 # Hint: use the ! operator, which turns FALSE into TRUE and vice versa,
 # then which to obtain an index.
+abbreviations <- c("MA", "ME", "MI", "MO", "MU")
+ind <- which(! abbreviations %in% murders$abb)
+cat("This is not an abbreviation: ", abbreviations[ind])
 
-# 43
+# 43/45
 # We made a plot of total murders versus population and noted
 # a strong relationship. Not surprisingly,
 # states with larger populations had more murders.
-population_in_millions <- murders$population/10^6
-total_gun_murders <- murders$total
+population_in_millions <- log10(murders$population/10^6)
+total_gun_murders <- log10(murders$total)
 plot(population_in_millions, total_gun_murders)
 # Keep in mind that many states have populations below 5 million
 # and are bunched up.
@@ -377,8 +382,16 @@ plot(population_in_millions, total_gun_murders)
 # Transform the variables using the log10 transformation
 # and then plot them.
 
-# 44
+# 44/45
 # Create a histogram of the state populations.
+hist(murders$population/10^6)
+# bonus
+pop <- murders |>
+  select(abb, population) |>
+  filter(population/10^6 > 10)
+pop
+hist(pop$population)
 
 # 45                                                                                                                                                                                                         
 # Generate boxplots of the state populations by region.
+boxplot(population ~ region, murders)
